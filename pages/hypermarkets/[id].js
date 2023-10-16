@@ -6,7 +6,7 @@ import facebookIcon from "../../public/icons/face.svg";
 import clockIcon from "../../public/icons/clock.svg";
 import instaIcon from "../../public/icons/insta.svg";
 import { useRouter } from "next/router";
-const mall = ({ oneMall }) => {
+const hypermarket = ({ oneHypermarket }) => {
   const router = useRouter();
   const goBack = () => {
     router.back();
@@ -23,7 +23,7 @@ const mall = ({ oneMall }) => {
         </button>
         <div className="flex flex-col justify-center">
           <h1 className="font-bold text-center text-[64px] first-letter:text-8xl my-8">
-            {oneMall.data.name}
+            {oneHypermarket.data.name}
           </h1>
           <div className=" bg-gray-200 flex justify-center">
             {" "}
@@ -32,27 +32,27 @@ const mall = ({ oneMall }) => {
               <div className="flex">
                 <Image src={clockIcon} width={25} height={25} />
                 <span className="ml-4 text-green-600 font-bold">
-                  Open : {oneMall.data.openingHours}
+                  Open : {oneHypermarket.data.openingHours}
                 </span>
               </div>
               <div className="flex">
                 <Image src={facebookIcon} width={25} height={25} />
 
                 <a
-                  href={oneMall.data.fb}
+                  href={oneHypermarket.data.fb}
                   className="ml-4 text-blue-600 font-bold hover:underline"
                 >
-                  {oneMall.data.fb}
+                  {oneHypermarket.data.fb}
                 </a>
               </div>
               <div className="flex">
                 <Image src={instaIcon} width={25} height={25} />
 
                 <a
-                  href={oneMall.data.insta}
+                  href={oneHypermarket.data.insta}
                   className="ml-4 text-blue-600 font-bold hover:underline"
                 >
-                  {oneMall.data.insta}
+                  {oneHypermarket.data.insta}
                 </a>
               </div>
             </div>
@@ -60,7 +60,9 @@ const mall = ({ oneMall }) => {
         </div>
         <div className="flex flex-col">
           <h2 className="font-semibold text-[32px] text-center">الوصف</h2>{" "}
-          <p className="bg-gray-200 text-center">{oneMall.data.description}</p>
+          <p className="bg-gray-200 text-center">
+            {oneHypermarket.data.description}
+          </p>
         </div>
         <div className="flex justify-center">
           {" "}
@@ -68,11 +70,11 @@ const mall = ({ oneMall }) => {
         </div>{" "}
         <div>
           <div className="m-10">
-            <ZoomSlider images={oneMall.data.images} />
+            <ZoomSlider images={oneHypermarket.data.images} />
           </div>
         </div>
         {/* <div>
-        <button onClick={() => console.log(oneMall)}>click</button>
+        <button onClick={() => console.log(oneHypermarket)}>click</button>
       </div> */}
         ;
       </div>
@@ -80,11 +82,13 @@ const mall = ({ oneMall }) => {
   );
 };
 
-export default mall;
+export default hypermarket;
 
 export async function getServerSideProps({ query }) {
   const id = query.id;
-  const response = await axios.get(`http://localhost:3000/api/malls/${id}`);
-  const oneMall = response.data;
-  return { props: { oneMall } };
+  const response = await axios.get(
+    `http://localhost:3000/api/hypermarkets/${id}`
+  );
+  const oneHypermarket = response.data;
+  return { props: { oneHypermarket } };
 }

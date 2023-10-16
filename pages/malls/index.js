@@ -1,41 +1,35 @@
 // pages/Malls.js
 import axios from "axios";
 import Card from "@/components/Card";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Malls = ({ malls }) => {
+const Malls = () => {
+  const [malls, setMalls] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/malls");
+        setMalls(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setMalls([]);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   console.log("first", malls);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-      {malls.data.map((mall, index) => (
+      {malls.map((mall, index) => (
         <Card mall={mall} index={index} />
       ))}
-      ss
     </div>
   );
 };
 
 export default Malls;
-
-export async function getStaticProps() {
-  try {
-    // Fetch mall data from your API endpoint
-    const response = await axios.get("http://localhost:3000/api/malls");
-
-    // Extract the malls data from the response
-    const malls = response.data;
-
-    return {
-      props: {
-        malls,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching mall data:", error);
-    return {
-      props: {
-        malls: [],
-      },
-    };
-  }
-}

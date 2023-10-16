@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl mx-auto px-4 py-6 flex justify-between items-center">
         <a
           className="text-3xl font-bold font-heading"
-          href="#"
+          href="/"
           style={{
             fontFamily: "Noto Nastaliq Urdu,Noto Kufi Arabic, sans-serif",
           }}
