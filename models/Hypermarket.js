@@ -6,6 +6,7 @@ const hypermarketSchema = new mongoose.Schema({
   locationLink: { type: String, required: true },
   openingHours: { type: String, required: true },
   images: { type: [String], required: true },
+  // address: { type: String, required: true },
   fb: { type: String, required: [true, "A Hypermarket must have a fb link"] },
   insta: {
     type: String,

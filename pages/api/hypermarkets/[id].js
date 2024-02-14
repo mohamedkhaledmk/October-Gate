@@ -1,4 +1,6 @@
-export async function handler(req, res) {
+import Hypermarket from "../../../models/Hypermarket.js";
+
+export default async function handler(req, res) {
   if (req.method === "GET") {
     const { id } = req.query;
     try {
@@ -50,6 +52,17 @@ export async function handler(req, res) {
       res.status(200).json({ status: "success", data: wantedHypermarket });
     } catch (error) {
       res.status(500).json({ status: "error", message: error.message });
+    }
+  } else if (req.method === "DELETE") {
+    const { id } = req.query;
+    try {
+      const deletedHypermarket = await Hypermarket.deleteOne({ _id: id });
+      return res.status(201).json({
+        status: true,
+        message: "deleted successfully",
+      });
+    } catch (err) {
+      res.status(500).send("Internal server Error");
     }
   }
 }

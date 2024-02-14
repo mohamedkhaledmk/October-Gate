@@ -1,5 +1,4 @@
-import Hypermarket from "@/models/Hypermarket";
-
+import Hypermarket from "../../../models/Hypermarket.js";
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
@@ -10,7 +9,7 @@ export default async function handler(req, res) {
     } catch (error) {
       res.status(404).json({
         status: "error",
-        note: "Id may be not found!",
+        note: "Connection Error!",
         message: error.message,
       });
     }
@@ -19,7 +18,11 @@ export default async function handler(req, res) {
       const newHypermarket = await Hypermarket.create(req.body);
       res.status(201).json({ status: "success", data: newHypermarket });
     } catch (error) {
-      res.status(500).send("Internal server Error");
+      res.status(500).json({
+        status: "Success",
+        message: "Internal server Error",
+        error: error,
+      });
     }
   } else if (req.method === "PUT") {
     const { id } = req.query;
